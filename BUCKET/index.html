@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bucket List</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="header">
+        <h1 class="title-effect">My Bucket List</h1>
+        <h2 class="hover-effect">Welcome To <i>My</i> World!!</h2>
+        <button id="darkModeToggle">Toggle Dark Mode</button>
+    </header>
+    
+    <main>
+        <input type="text" id="newItem" placeholder="Add new item...">
+        <button onclick="addItem()">Add</button>
+        
+        <ul class="bucket-list" id="bucketList">
+            <li class="completed" onclick="toggleComplete(this)"><i class="fas fa-check-circle"></i> <strong> Travel to Paris </strong></li>
+            <li onclick="toggleComplete(this)"><i class="far fa-circle"></i> <strong>Master a new language</strong></li>
+            <li class="completed" onclick="toggleComplete(this)"><i class="fas fa-check-circle"></i> <strong>Skydiving</strong></li>
+            <li onclick="toggleComplete(this)"><i class="far fa-circle"></i> <strong>Give a TED Talk</strong></li>
+            <li onclick="toggleComplete(this)"><i class="far fa-circle"></i> <strong>Run a marathon</strong></li>
+        </ul>
+    </main>
+    
+    <footer class="footer">
+        <p>&copy; 2025 My Bucket List | Designed with ❤️</p>
+    </footer>
+
+    <script>
+        function addItem() {
+            let input = document.getElementById("newItem");
+            let itemText = input.value.trim();
+            if (itemText === "") return;
+            
+            let li = document.createElement("li");
+            li.innerHTML = `<i class='far fa-circle'></i> <strong>${itemText}</strong>`;
+            li.onclick = function() { toggleComplete(this); };
+            document.getElementById("bucketList").appendChild(li);
+            input.value = "";
+        }
+        
+        function toggleComplete(item) {
+            let icon = item.querySelector("i");
+            if (item.classList.contains("completed")) {
+                item.classList.remove("completed");
+                icon.classList.replace("fas", "far");
+                icon.classList.replace("fa-check-circle", "fa-circle");
+            } else {
+                item.classList.add("completed");
+                icon.classList.replace("far", "fas");
+                icon.classList.replace("fa-circle", "fa-check-circle");
+            }
+        }
+        
+        document.getElementById("darkModeToggle").addEventListener("click", function() {
+            document.body.classList.toggle("dark-mode");
+        });
+    </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e3f2fd;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #333;
+        }
+
+        .header {
+            background-color: #1565c0;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+        }
+
+        .footer {
+            background-color: #1565c0;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            width: 100%;
+        }
+
+        .bucket-list {
+            padding: 20px;
+        }
+
+        .bucket-list li {
+            padding: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #0d47a1;
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        .bucket-list li:hover {
+            transform: scale(1.1);
+            color: #ff9800;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: gray !important;
+        }
+
+        #darkModeToggle {
+            background-color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        .dark-mode {
+            background-color: #121212;
+            color: white;
+        }
+
+        .dark-mode .header, .dark-mode .footer {
+            background-color: #1e1e1e;
+        }
+
+        .hover-effect {
+            color: #D8BFD8;
+            transition: color 0.3s;
+        }
+
+        .hover-effect:hover {
+            color: rgb(216, 191, 216);
+        }
+
+        .title-effect {
+            color: #DB7093;
+        }
+    </style>
+</body>
+</html>
